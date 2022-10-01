@@ -1,0 +1,43 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <title>Converse</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Converse Rust"/>
+    <meta name="author" content="moparisthebest" />
+    <meta name="keywords" content="xmpp chat webchat converse.js" />
+    <link rel="shortcut icon" type="image/ico" href="./dist/favicon.ico"/>
+    <link rel="manifest" href="./manifest.json">
+    <link type="text/css" rel="stylesheet" media="screen" href="./dist/converse.min.css" />
+    <!--
+    uncomment this to disable omemo
+    -->
+    <script src="./3rdparty/libsignal-protocol.min.js"></script>
+    <script src="./dist/converse.min.js"></script>
+</head>
+<body class="converse-fullscreen">
+<noscript>You need to enable JavaScript to run the Converse.js chat app.</noscript>
+<div id="conversejs-bg"></div>
+<script>
+    // access the pre-bundled global API functions
+    const { invoke } = window.__TAURI__.tauri;
+
+    invoke('start_proxy').then((port) => {
+    console.log('start_proxy Completed!, port: ' + port);
+
+    converse.initialize({
+        authentication: 'login',
+        auto_away: 300,
+        auto_reconnect: true,
+        //websocket_url: 'wss://burtrum.org/xmpp-websocket/',
+        websocket_url: 'ws://127.0.0.1:' + port + '/xmpp-websocket/',
+        assets_path: './dist/',
+        discover_connection_methods: false,
+        message_archiving: 'always',
+        view_mode: 'fullscreen'
+    });
+    });
+</script>
+</body>
+</html>
