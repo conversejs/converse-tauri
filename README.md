@@ -6,11 +6,11 @@ server through [xmpp-proxy](https://github.com/moparisthebest/xmpp-proxy).
 
 It's the first known client to support [QUIC](https://xmpp.org/extensions/xep-0467.html).
 
-To build install Tauri `cargo install create-tauri-app`, then run `cargo tauri build`
+To build install Tauri `cargo install create-tauri-app`, then run `cargo tauri build`.
 
-If you trust me you can download these binaries, I've only tested the AppImage ([arch btw](https://www.moparisthebest.com/images/i-only-use-arch-linux.png)):
-  * [converse-tauri_0.1.0_amd64.AppImage](https://www.moparisthebest.com/converse-tauri_0.1.0_amd64.AppImage)
-  * [converse-tauri_0.1.0_amd64.deb](https://www.moparisthebest.com/converse-tauri_0.1.0_amd64.deb)
+If you want to download binaries head over to [Releases](https://github.com/conversejs/converse-tauri/releases).
 
 ####  License
-GNU/AGPLv3 - Check LICENSE.md for details
+MPLv2      - Converse.js files under dist/ excluding 3rdparty/
+GNU/GPLv3  - dist/3rdparty/libsignal-protocol.min.js
+GNU/AGPLv3 - Rust files under src-tauri/ - Check LICENSE.md for details
