@@ -7,7 +7,7 @@
     "withGlobalTauri": true
   },
   "package": {
-    "productName": "Converse Tauri",
+    "productName": "Converse Tauri test",
     "version": "0.1.0"
   },
   "tauri": {
