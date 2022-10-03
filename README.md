@@ -11,6 +11,6 @@ To build install Tauri `cargo install create-tauri-app`, then run `cargo tauri b
 If you want to download binaries head over to [Releases](https://github.com/conversejs/converse-tauri/releases).
 
 ####  License
-MPLv2      - Converse.js files under dist/ excluding 3rdparty/
-GNU/GPLv3  - dist/3rdparty/libsignal-protocol.min.js
-GNU/AGPLv3 - Rust files under src-tauri/ - Check LICENSE.md for details
+MPLv2      - Converse.js files under dist/ excluding 3rdparty/  
+GNU/GPLv3  - dist/3rdparty/libsignal-protocol.min.js  
+GNU/AGPLv3 - Rust files under src-tauri/ - Check LICENSE.md for details  

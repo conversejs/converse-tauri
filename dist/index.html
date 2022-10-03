@@ -23,21 +23,80 @@
     // access the pre-bundled global API functions
     const { invoke } = window.__TAURI__.tauri;
 
-    invoke('start_proxy').then((port) => {
-    console.log('start_proxy Completed!, port: ' + port);
+    function addCredentials (login, password) {
+        localStorage.setItem('login', login);
+        localStorage.setItem('password', password);
+    }
 
-    converse.initialize({
-        authentication: 'login',
-        auto_away: 300,
-        auto_reconnect: true,
-        //websocket_url: 'wss://burtrum.org/xmpp-websocket/',
-        websocket_url: 'ws://127.0.0.1:' + port + '/xmpp-websocket/',
-        assets_path: './dist/',
-        discover_connection_methods: false,
-        message_archiving: 'always',
-        play_sounds: false,
-        view_mode: 'fullscreen'
+    function getCredentials () {
+        const credentials = {}
+        credentials.login = localStorage.getItem('login') || '';
+        if (credentials.login) {
+            credentials.password = localStorage.getItem('password');
+        }
+
+        return credentials;
+    }
+
+    function removeCredentials () {
+        localStorage.removeItem('login');
+        localStorage.removeItem('password');
+    }
+
+    converse.plugins.add('converse-desktop-credentials', {
+        initialize () {
+            console.log("converse-desktop-credentials - initialize");
+
+            const { _converse } = this;
+            const { api } = _converse;
+
+            api.listen.on('afterResourceBinding', () => {
+                console.log("converse-desktop-credentials - afterResourceBinding");
+                if (_converse.connection.pass) {
+                    addCredentials(
+                        _converse.bare_jid,
+                        _converse.connection.pass
+                    );
+                }
+            });
+
+            api.listen.on('logout', () => {
+                console.log("converse-desktop-credentials - logout");
+                removeCredentials();
+            });
+        }
     });
+
+    const { login, password } = getCredentials();
+    console.log('login: ' + login);
+
+    invoke('proxy_port').then((port) => {
+        console.log('proxy_port: ' + port);
+
+        converse.initialize({
+            auto_login: login && password,
+            jid: login,
+            password: password,
+            authentication: 'login',
+            auto_away: 300,
+            auto_reconnect: true,
+            websocket_url: 'ws://127.0.0.1:' + port + '/xmpp-websocket/',
+            assets_path: './dist/',
+            discover_connection_methods: false,
+            message_archiving: 'always',
+            play_sounds: false,
+            view_mode: 'fullscreen',
+            loglevel: 'debug',
+            muc_respect_autojoin: true,
+            muc_show_logs_before_join: true,
+            whitelisted_plugins: ['converse-desktop-credentials']
+        }).catch((reason) => {
+            document.body.innerText = "error starting converse: " + reason;
+            console.log(document.body.innerText);
+        });
+    }).catch((reason) => {
+        document.body.innerText = "error starting proxy: " + reason;
+        console.log(document.body.innerText);
     });
 </script>
 </body>
