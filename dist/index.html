@@ -22,6 +22,31 @@
 <script>
     // access the pre-bundled global API functions
     const { invoke } = window.__TAURI__.tauri;
+    const { getClient, ResponseType } = window.__TAURI__.http;
+    const tauriFetch = window.__TAURI__.http.fetch;
+
+    const realFetch = window.fetch;
+
+    // this is clearly not a complete fetch implementation
+    // but it's enough for the omemo downloadFile() function...
+    window.fetch = async function(url) {
+        console.log("fetching url: " + url);
+
+        const client = await getClient();
+        let response = await await client.get(
+        url, {
+            timeout: 30,
+            responseType: ResponseType.Binary
+        });
+
+        let data = new Uint8Array(response.data).buffer;
+
+        response.arrayBuffer = async function() {
+            return data;
+        };
+
+        return response;
+    };
 
     function addCredentials (login, password) {
         localStorage.setItem('login', login);
@@ -86,7 +111,7 @@
             message_archiving: 'always',
             play_sounds: false,
             view_mode: 'fullscreen',
-            loglevel: 'debug',
+            //loglevel: 'debug',
             muc_respect_autojoin: true,
             muc_show_logs_before_join: true,
             whitelisted_plugins: ['converse-desktop-credentials']
