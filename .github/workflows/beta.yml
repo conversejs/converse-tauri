@@ -30,8 +30,18 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
-    - name: Dynamically set MY_DATE environment variable
-      run: echo "BETA_TAG=beta-$(git show -s --format=%cd-%h --date=format:'%Y-%m-%d' HEAD)" >> $GITHUB_ENV
+    - name: Dynamically set BETA_TAG environment variable (not windows)
+      if: runner.os != 'Windows'
+      run: |
+        echo "BETA_TAG=beta-$(git show -s --format=%cd-%h --date=format:'%Y-%m-%d' HEAD)"
+        echo "BETA_TAG=beta-$(git show -s --format=%cd-%h --date=format:'%Y-%m-%d' HEAD)" >> $GITHUB_ENV
+    - name: Dynamically set BETA_TAG environment variable (windows)
+      if: runner.os == 'Windows'
+      run: |
+        chcp 65001 #set code page to utf-8
+        $gitout = & git show -s --format=%cd-%h --date=format:'%Y-%m-%d' HEAD
+        echo ("BETA_TAG=beta-" + $gitout)
+        echo ("BETA_TAG=beta-" + $gitout) >> $env:GITHUB_ENV
     - uses: tauri-apps/tauri-action@v0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
