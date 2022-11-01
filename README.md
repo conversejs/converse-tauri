@@ -1,7 +1,7 @@
 Converse Tauri
 --------------
 
-This is [Converse.js](https://conversejs.org/) (version 9.1.1) in [Tauri](https://tauri.app) connecting to any XMPP
+This is [Converse.js](https://conversejs.org/) (version 10.0.0) in [Tauri](https://tauri.app) connecting to any XMPP
 server through [xmpp-proxy](https://github.com/moparisthebest/xmpp-proxy).
 
 It's the first known client to support [QUIC](https://xmpp.org/extensions/xep-0467.html).
