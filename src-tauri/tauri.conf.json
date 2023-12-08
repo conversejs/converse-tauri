@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "Converse Tauri",
-    "version": "0.1.0"
+    "version": "10.1.6"
   },
   "tauri": {
     "allowlist": {
