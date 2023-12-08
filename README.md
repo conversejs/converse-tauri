@@ -6,7 +6,7 @@ server through [xmpp-proxy](https://github.com/moparisthebest/xmpp-proxy).
 
 It's the first known client to support [QUIC](https://xmpp.org/extensions/xep-0467.html).
 
-To build install Tauri `cargo install create-tauri-app`, then run `cargo tauri build`.
+To build install Tauri `cargo install --locked tauri-cli`, then run `cargo tauri build`.
 
 If you want to download binaries head over to [Releases](https://github.com/conversejs/converse-tauri/releases).
 
