@@ -30,7 +30,7 @@ jobs:
       if: matrix.platform == 'ubuntu-24.04'
       run: |
         sudo apt-get update
-        sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
+        sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf libsoup2.4-dev
     - name: Dynamically set BETA_TAG environment variable (not windows)
       if: runner.os != 'Windows'
       run: |
