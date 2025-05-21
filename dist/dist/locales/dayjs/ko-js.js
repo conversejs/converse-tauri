@@ -1,10 +1,10 @@
-(self["webpackChunkconverse_js"] = self["webpackChunkconverse_js"] || []).push([[3446],{
+(self["webpackChunkconverse_js"] = self["webpackChunkconverse_js"] || []).push([[8789],{
 
-/***/ 3206:
+/***/ 7480:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 !function (e, _) {
-   true ? module.exports = _(__webpack_require__(7076)) : 0;
+   true ? module.exports = _(__webpack_require__(5646)) : 0;
 }(this, function (e) {
   "use strict";
 
@@ -22,7 +22,7 @@
       months: "1월_2월_3월_4월_5월_6월_7월_8월_9월_10월_11월_12월".split("_"),
       monthsShort: "1월_2월_3월_4월_5월_6월_7월_8월_9월_10월_11월_12월".split("_"),
       ordinal: function (e) {
-        return e;
+        return e + "일";
       },
       formats: {
         LT: "A h:mm",

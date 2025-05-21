@@ -1,10 +1,10 @@
-(self["webpackChunkconverse_js"] = self["webpackChunkconverse_js"] || []).push([[3153],{
+(self["webpackChunkconverse_js"] = self["webpackChunkconverse_js"] || []).push([[948],{
 
-/***/ 1835:
+/***/ 8421:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 !function (_, e) {
-   true ? module.exports = e(__webpack_require__(7076)) : 0;
+   true ? module.exports = e(__webpack_require__(5646)) : 0;
 }(this, function (_) {
   "use strict";
 
@@ -35,7 +35,7 @@
       },
       relativeTime: {
         future: "Якин %s ичида",
-        past: "Бир неча %s олдин",
+        past: "%s олдин",
         s: "фурсат",
         m: "бир дакика",
         mm: "%d дакика",

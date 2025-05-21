@@ -1,10 +1,10 @@
-(self["webpackChunkconverse_js"] = self["webpackChunkconverse_js"] || []).push([[5544],{
+(self["webpackChunkconverse_js"] = self["webpackChunkconverse_js"] || []).push([[598],{
 
-/***/ 2523:
+/***/ 8851:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 !function (_, e) {
-   true ? module.exports = e(__webpack_require__(7076)) : 0;
+   true ? module.exports = e(__webpack_require__(5646)) : 0;
 }(this, function (_) {
   "use strict";
 
@@ -17,11 +17,11 @@
     d = {
       name: "fa",
       weekdays: "یک‌شنبه_دوشنبه_سه‌شنبه_چهارشنبه_پنج‌شنبه_جمعه_شنبه".split("_"),
-      weekdaysShort: "یک‌_دو_سه‌_چه_پن_جم_شن".split("_"),
+      weekdaysShort: "یک‌شنبه_دوشنبه_سه‌شنبه_چهارشنبه_پنج‌شنبه_جمعه_شنبه".split("_"),
       weekdaysMin: "ی_د_س_چ_پ_ج_ش".split("_"),
       weekStart: 6,
-      months: "فروردین_اردیبهشت_خرداد_تیر_مرداد_شهریور_مهر_آبان_آذر_دی_بهمن_اسفند".split("_"),
-      monthsShort: "فرو_ارد_خرد_تیر_مرد_شهر_مهر_آبا_آذر_دی_بهم_اسف".split("_"),
+      months: "ژانویه_فوریه_مارس_آوریل_مه_ژوئن_ژوئیه_اوت_سپتامبر_اکتبر_نوامبر_دسامبر".split("_"),
+      monthsShort: "ژانویه_فوریه_مارس_آوریل_مه_ژوئن_ژوئیه_اوت_سپتامبر_اکتبر_نوامبر_دسامبر".split("_"),
       ordinal: function (_) {
         return _;
       },
@@ -35,7 +35,7 @@
       },
       relativeTime: {
         future: "در %s",
-        past: "%s قبل",
+        past: "%s پیش",
         s: "چند ثانیه",
         m: "یک دقیقه",
         mm: "%d دقیقه",

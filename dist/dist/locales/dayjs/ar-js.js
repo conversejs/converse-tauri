@@ -1,10 +1,10 @@
-(self["webpackChunkconverse_js"] = self["webpackChunkconverse_js"] || []).push([[6755],{
+(self["webpackChunkconverse_js"] = self["webpackChunkconverse_js"] || []).push([[8880],{
 
-/***/ 4439:
+/***/ 1193:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 !function (e, t) {
-   true ? module.exports = t(__webpack_require__(7076)) : 0;
+   true ? module.exports = t(__webpack_require__(5646)) : 0;
 }(this, function (e) {
   "use strict";
 
@@ -15,7 +15,7 @@
   }
   var n = t(e),
     r = "يناير_فبراير_مارس_أبريل_مايو_يونيو_يوليو_أغسطس_سبتمبر_أكتوبر_نوفمبر_ديسمبر".split("_"),
-    _ = {
+    d = {
       1: "١",
       2: "٢",
       3: "٣",
@@ -27,7 +27,7 @@
       9: "٩",
       0: "٠"
     },
-    d = {
+    _ = {
       "١": "1",
       "٢": "2",
       "٣": "3",
@@ -47,6 +47,9 @@
       months: r,
       monthsShort: r,
       weekStart: 6,
+      meridiem: function (e) {
+        return e > 12 ? "م" : "ص";
+      },
       relativeTime: {
         future: "بعد %s",
         past: "منذ %s",
@@ -64,12 +67,12 @@
       },
       preparse: function (e) {
         return e.replace(/[١٢٣٤٥٦٧٨٩٠]/g, function (e) {
-          return d[e];
+          return _[e];
         }).replace(/،/g, ",");
       },
       postformat: function (e) {
         return e.replace(/\d/g, function (e) {
-          return _[e];
+          return d[e];
         }).replace(/,/g, "،");
       },
       ordinal: function (e) {

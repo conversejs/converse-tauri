@@ -1,10 +1,10 @@
-(self["webpackChunkconverse_js"] = self["webpackChunkconverse_js"] || []).push([[2548],{
+(self["webpackChunkconverse_js"] = self["webpackChunkconverse_js"] || []).push([[6208],{
 
-/***/ 4771:
+/***/ 2685:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 !function (e, t) {
-   true ? module.exports = t(__webpack_require__(7076)) : 0;
+   true ? module.exports = t(__webpack_require__(5646)) : 0;
 }(this, function (e) {
   "use strict";
 
@@ -14,7 +14,7 @@
     };
   }
   var d = t(e),
-    n = {
+    a = {
       name: "da",
       weekdays: "søndag_mandag_tirsdag_onsdag_torsdag_fredag_lørdag".split("_"),
       weekdaysShort: "søn._man._tirs._ons._tors._fre._lør.".split("_"),
@@ -22,6 +22,7 @@
       months: "januar_februar_marts_april_maj_juni_juli_august_september_oktober_november_december".split("_"),
       monthsShort: "jan._feb._mar._apr._maj_juni_juli_aug._sept._okt._nov._dec.".split("_"),
       weekStart: 1,
+      yearStart: 4,
       ordinal: function (e) {
         return e + ".";
       },
@@ -49,7 +50,7 @@
         yy: "%d år"
       }
     };
-  return d.default.locale(n, null, !0), n;
+  return d.default.locale(a, null, !0), a;
 });
 
 /***/ })

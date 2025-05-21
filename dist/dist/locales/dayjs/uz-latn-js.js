@@ -1,10 +1,10 @@
-(self["webpackChunkconverse_js"] = self["webpackChunkconverse_js"] || []).push([[1110],{
+(self["webpackChunkconverse_js"] = self["webpackChunkconverse_js"] || []).push([[5970],{
 
-/***/ 5866:
+/***/ 3647:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 !function (a, e) {
-   true ? module.exports = e(__webpack_require__(7076)) : 0;
+   true ? module.exports = e(__webpack_require__(5646)) : 0;
 }(this, function (a) {
   "use strict";
 
@@ -13,8 +13,8 @@
       default: a
     };
   }
-  var n = e(a),
-    _ = {
+  var _ = e(a),
+    n = {
       name: "uz-latn",
       weekdays: "Yakshanba_Dushanba_Seshanba_Chorshanba_Payshanba_Juma_Shanba".split("_"),
       months: "Yanvar_Fevral_Mart_Aprel_May_Iyun_Iyul_Avgust_Sentabr_Oktabr_Noyabr_Dekabr".split("_"),
@@ -35,7 +35,7 @@
       },
       relativeTime: {
         future: "Yaqin %s ichida",
-        past: "Bir necha %s oldin",
+        past: "%s oldin",
         s: "soniya",
         m: "bir daqiqa",
         mm: "%d daqiqa",
@@ -49,7 +49,7 @@
         yy: "%d yil"
       }
     };
-  return n.default.locale(_, null, !0), _;
+  return _.default.locale(n, null, !0), n;
 });
 
 /***/ })

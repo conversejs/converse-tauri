@@ -1,10 +1,10 @@
-(self["webpackChunkconverse_js"] = self["webpackChunkconverse_js"] || []).push([[3755],{
+(self["webpackChunkconverse_js"] = self["webpackChunkconverse_js"] || []).push([[7013],{
 
-/***/ 8586:
+/***/ 4324:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 !function (_, e) {
-   true ? module.exports = e(__webpack_require__(7076)) : 0;
+   true ? module.exports = e(__webpack_require__(5646)) : 0;
 }(this, function (_) {
   "use strict";
 
@@ -13,8 +13,8 @@
       default: _
     };
   }
-  var t = e(_),
-    d = {
+  var d = e(_),
+    t = {
       name: "zh-hk",
       months: "一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月".split("_"),
       monthsShort: "1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月".split("_"),
@@ -30,7 +30,11 @@
         L: "YYYY/MM/DD",
         LL: "YYYY年M月D日",
         LLL: "YYYY年M月D日 HH:mm",
-        LLLL: "YYYY年M月D日dddd HH:mm"
+        LLLL: "YYYY年M月D日dddd HH:mm",
+        l: "YYYY/M/D",
+        ll: "YYYY年M月D日",
+        lll: "YYYY年M月D日 HH:mm",
+        llll: "YYYY年M月D日dddd HH:mm"
       },
       relativeTime: {
         future: "%s內",
@@ -46,9 +50,13 @@
         MM: "%d 個月",
         y: "一年",
         yy: "%d 年"
+      },
+      meridiem: function (_, e) {
+        var d = 100 * _ + e;
+        return d < 600 ? "凌晨" : d < 900 ? "早上" : d < 1100 ? "上午" : d < 1300 ? "中午" : d < 1800 ? "下午" : "晚上";
       }
     };
-  return t.default.locale(d, null, !0), d;
+  return d.default.locale(t, null, !0), t;
 });
 
 /***/ })

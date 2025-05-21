@@ -1,10 +1,10 @@
-(self["webpackChunkconverse_js"] = self["webpackChunkconverse_js"] || []).push([[578],{
+(self["webpackChunkconverse_js"] = self["webpackChunkconverse_js"] || []).push([[1072],{
 
-/***/ 9735:
+/***/ 2749:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 !function (e, _) {
-   true ? module.exports = _(__webpack_require__(7076)) : 0;
+   true ? module.exports = _(__webpack_require__(5646)) : 0;
 }(this, function (e) {
   "use strict";
 
@@ -20,7 +20,7 @@
       weekdaysShort: "нед_пон_вто_сря_чет_пет_съб".split("_"),
       weekdaysMin: "нд_пн_вт_ср_чт_пт_сб".split("_"),
       months: "януари_февруари_март_април_май_юни_юли_август_септември_октомври_ноември_декември".split("_"),
-      monthsShort: "янр_фев_мар_апр_май_юни_юли_авг_сеп_окт_ное_дек".split("_"),
+      monthsShort: "яну_фев_мар_апр_май_юни_юли_авг_сеп_окт_ное_дек".split("_"),
       weekStart: 1,
       ordinal: function (e) {
         var _ = e % 100;
