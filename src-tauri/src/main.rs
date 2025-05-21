@@ -5,9 +5,12 @@
 
 use once_cell::sync::OnceCell;
 use std::sync::Arc;
+use tauri::Manager;
 use tauri::{
-    CustomMenuItem, Manager, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem,
+    menu::{Menu, MenuItem},
+    tray::TrayIconBuilder,
 };
+
 use tokio::net::TcpListener;
 use xmpp_proxy::{
     common::{certs_key::CertsKey, outgoing::OutgoingConfig},
@@ -51,64 +54,40 @@ fn main() {
             )
             .expect("this is the only place that calls set");
     });
-    let tray_menu = SystemTrayMenu::new()
-        .add_item(CustomMenuItem::new("show".to_string(), "Show"))
-        .add_native_item(SystemTrayMenuItem::Separator)
-        .add_item(CustomMenuItem::new("hide".to_string(), "Hide"))
-        .add_native_item(SystemTrayMenuItem::Separator)
-        .add_item(CustomMenuItem::new("quit".to_string(), "Quit"));
-    let system_tray = SystemTray::new().with_menu(tray_menu);
+
     tauri::Builder::default()
         .setup(|app| {
             #[cfg(debug_assertions)] // only include this code on debug builds
             {
-                let window = app.get_window("main").unwrap();
+                let window = app.get_webview_window("main").unwrap();
                 window.open_devtools();
                 window.close_devtools();
             }
+            let quit_i = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;
+            let menu = Menu::with_items(app, &[&quit_i])?;
+            TrayIconBuilder::new()
+                .on_menu_event(|app, event| match event.id.as_ref() {
+                    "quit" => {
+                        println!("quit menu item was clicked");
+                        app.exit(0);
+                    }
+                    "hide" => {
+                        let window = app.get_webview_window("main").unwrap();
+                        window.hide().unwrap();
+                    }
+                    "show" => {
+                        let window = app.get_webview_window("main").unwrap();
+                        window.show().unwrap();
+                    }
+                    _ => {
+                        println!("menu item {:?} not handled", event.id);
+                    }
+                })
+                .icon(app.default_window_icon().unwrap().clone())
+                .menu(&menu)
+                .show_menu_on_left_click(true)
+                .build(app)?;
             Ok(())
-        })
-        .system_tray(system_tray)
-        .on_system_tray_event(|app, event| match event {
-            SystemTrayEvent::LeftClick {
-                position: _,
-                size: _,
-                ..
-            } => {
-                println!("system tray received a left click");
-                // doesn't seem to work
-            }
-            SystemTrayEvent::RightClick {
-                position: _,
-                size: _,
-                ..
-            } => {
-                println!("system tray received a right click");
-                // doesn't seem to work
-            }
-            SystemTrayEvent::DoubleClick {
-                position: _,
-                size: _,
-                ..
-            } => {
-                println!("system tray received a double click");
-                // doesn't seem to work
-            }
-            SystemTrayEvent::MenuItemClick { id, .. } => match id.as_str() {
-                "quit" => {
-                    std::process::exit(0);
-                }
-                "hide" => {
-                    let window = app.get_window("main").unwrap();
-                    window.hide().unwrap();
-                }
-                "show" => {
-                    let window = app.get_window("main").unwrap();
-                    window.show().unwrap();
-                }
-                _ => {}
-            },
-            _ => {}
         })
         .invoke_handler(tauri::generate_handler![proxy_port])
         .run(tauri::generate_context!())

@@ -3,3 +3,4 @@ target
 *.map
 *.tgz
 
+.aider*
