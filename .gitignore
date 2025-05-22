@@ -2,5 +2,5 @@
 target
 *.map
 *.tgz
-
+src-tauri/gen
 .aider*
