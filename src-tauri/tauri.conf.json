@@ -6,11 +6,12 @@
   "identifier": "best.moparisthe.converse",
   "build": {
     "beforeBuildCommand": "true",
-    "beforeDevCommand": "cd dist && python -m http.server 8080",
+    "beforeDevCommand": "cd dist && python3 -m http.server 8080",
     "devUrl": "http://127.0.0.1:8080/",
     "frontendDist": "../dist"
   },
   "app": {
+    "withGlobalTauri": true,
     "windows": [
       {
         "dragDropEnabled": true,
