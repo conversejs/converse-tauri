@@ -1,4 +1,6 @@
-<!doctype html>
+<!doctype html
+
+>
 <html class="no-js" lang="en">
 <head>
     <title>Converse</title>
@@ -7,7 +9,7 @@
     <meta name="description" content="Converse Rust"/>
     <meta name="author" content="moparisthebest" />
     <meta name="keywords" content="xmpp chat webchat converse.js" />
-    <link rel="shortcut icon" type="image/ico" href="./dist/favicon.ico"/>
+    <link rel="shortcut icon" type="image/ico" href="./dist/images/favicon.ico"/>
     <link rel="manifest" href="./manifest.json">
     <link type="text/css" rel="stylesheet" media="screen" href="./dist/converse.min.css" />
     <!--
@@ -21,158 +23,7 @@
 <div id="conversejs-bg"></div>
 <script>
 // access the pre-bundled global API functions
-const { invoke } = window.__TAURI__.tauri;
-const { getClient, ResponseType, Body } = window.__TAURI__.http;
-const tauriFetch = window.__TAURI__.http.fetch;
-
-const realFetch = window.fetch;
-
-// this is clearly not a complete fetch implementation
-// but it's enough for the omemo downloadFile() function...
-window.fetch = async function (url) {
-    console.log("fetching url: " + url);
-
-    const client = await getClient();
-    let response = await await client.get(url, {
-        timeout: 30,
-        responseType: ResponseType.Binary,
-    });
-
-    let data = new Uint8Array(response.data).buffer;
-
-    response.arrayBuffer = async function () {
-        return data;
-    };
-
-    return response;
-};
-
-// this is clearly not a complete XMLHttpRequest implementation
-// but it's enough for http upload and gif download
-const realXMLHttpRequest = window.XMLHttpRequest;
-
-function fXMLHttpRequest() {
-    //this._xhr = new realXMLHttpRequest();
-    this.upload = {};
-    this.upload.addEventListener = function (type, listener, useCapture) {
-        console.log("fake XMLHttpRequest.upload.addEventListener()");
-    };
-}
-
-// Constructor
-function cXMLHttpRequest() {
-    return new fXMLHttpRequest();
-}
-
-cXMLHttpRequest.prototype = fXMLHttpRequest.prototype;
-
-cXMLHttpRequest.DONE = 4;
-
-cXMLHttpRequest.prototype.open = function (sMethod, sUrl, bAsync, sUser, sPassword) {
-    this._method = sMethod;
-    this._url = sUrl;
-    this._async = bAsync;
-    // Delete headers, required when object is reused
-    delete this._headers;
-};
-
-cXMLHttpRequest.prototype.setRequestHeader = function (sName, sValue) {
-    if (!this._headers) {
-        this._headers = {};
-    }
-
-    this._headers[sName] = sValue;
-};
-
-cXMLHttpRequest.prototype.overrideMimeType = function (mimeType) {
-    this._mimeType = mimeType;
-};
-
-cXMLHttpRequest.prototype.send = function (vData) {
-    const realThis = this;
-    /*
-    const xhr = new realXMLHttpRequest();
-    //xhr.onreadystatechange = this.onreadystatechange;
-    xhr.onreadystatechange = async () => {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            realThis.status = xhr.status;
-            realThis.readyState = xhr.readyState;
-            realThis.responseText = xhr.responseText;
-            realThis.response = xhr.response;
-
-            //console.log("xhr status: " + realThis.status}`);
-
-            console.log(`xhr status: ${realThis.status}`);
-            console.log(`xhr readyState: ${realThis.readyState}`);
-            console.log(`xhr responseText: ${realThis.responseText}`);
-            console.log(`xhr response: ${realThis.response}`);
-
-            if (realThis.onreadystatechange !== undefined) {
-                realThis.onreadystatechange();
-            }
-            if (realThis.onload !== undefined) {
-                realThis.onload();
-            }
-        }
-    };
-    console.log(`open(${this._method}, ${this._url}, ${this._async})`);
-    xhr.open(this._method, this._url, this._async);
-    if (this._mimeType !== undefined) {
-        console.log(`overrideMimeType(${this._mimeType})`);
-        xhr.overrideMimeType(this._mimeType);
-    }
-    for (const key in realThis._headers) {
-        console.log(`setRequestHeader(${key}: ${realThis._headers[key]})`);
-        xhr.setRequestHeader(key, realThis._headers[key]);
-    }
-    console.log(`send(${vData})`);
-    xhr.send(vData);
-    */
-
-    (async function () {
-        let response = null;
-
-        if (realThis._method == "PUT") {
-            const filePromise = new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    resolve(reader.result);
-                };
-                reader.readAsArrayBuffer(vData);
-            });
-
-            let buffer = await filePromise;
-
-            const client = await getClient();
-            response = await await client.put(realThis._url, Body.bytes(buffer), {
-                timeout: 30,
-                responseType: ResponseType.Text,
-                headers: realThis._headers,
-            });
-        } else if (realThis._method == "GET") {
-            const client = await getClient();
-            response = await await client.get(realThis._url, {
-                timeout: 30,
-                responseType: ResponseType.Text,
-                headers: realThis._headers,
-            });
-        }
-
-        realThis.status = response.status;
-        realThis.readyState = XMLHttpRequest.DONE;
-        realThis.responseText = response.data;
-        realThis.response = response.data;
-
-        if (realThis.onreadystatechange !== undefined) {
-            realThis.onreadystatechange();
-        }
-        if (realThis.onload !== undefined) {
-            realThis.onload();
-        }
-    })();
-};
-
-window.XMLHttpRequest = cXMLHttpRequest;
+const { invoke } = window.__TAURI__.core;
 
 function addCredentials(login, password) {
     localStorage.setItem("login", login);
@@ -197,14 +48,14 @@ function removeCredentials() {
 converse.plugins.add("converse-desktop-credentials", {
     initialize() {
         console.log("converse-desktop-credentials - initialize");
-
         const { _converse } = this;
         const { api } = _converse;
+        const connection = api.connection.get();
 
         api.listen.on("afterResourceBinding", () => {
             console.log("converse-desktop-credentials - afterResourceBinding");
-            if (_converse.connection.pass) {
-                addCredentials(_converse.bare_jid, _converse.connection.pass);
+            if (connection.pass) {
+                addCredentials(bare_jid, connection.pass);
             }
         });
 
